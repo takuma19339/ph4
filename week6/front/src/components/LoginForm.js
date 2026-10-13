@@ -2,14 +2,22 @@ import { useState } from "react";
 import Button from "./Button";
 import InputField from "./InputField";
 
-
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(email,password);
+
+    const response = await fetch("http://localhost/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email, password })
+    });
+
+    console.log(response.ok)
   };
 
   return (
